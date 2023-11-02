@@ -1,0 +1,3 @@
+pbeSprayFoam.C
+
+EXE = $(FOAM_APPBIN)/pbeSprayFoam

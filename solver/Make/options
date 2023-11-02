@@ -1,0 +1,82 @@
+sinclude $(GENERAL_RULES)/module-path-user
+
+/* Failsafe - user location */
+ifeq (,$(strip $(FOAM_MODULE_APPBIN)))
+    FOAM_MODULE_APPBIN = $(FOAM_USER_APPBIN)
+endif
+ifeq (,$(strip $(FOAM_MODULE_LIBBIN)))
+    FOAM_MODULE_LIBBIN = $(FOAM_USER_LIBBIN)
+endif
+
+QBMM_SRC := ../../../../src
+
+#if (OPENFOAM >= 2206)
+LIB_THERMO_TOOLS := -lthermoTools
+#else
+LIB_THERMO_TOOLS :=
+#endif
+
+EXE_INC = \
+    -I$(FOAM_APP)/solvers/lagrangian/reactingParcelFoam \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/finiteArea/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
+    -I$(LIB_SRC)/lagrangian/basic/lnInclude \
+    -I$(LIB_SRC)/lagrangian/intermediate/lnInclude \
+    -I$(LIB_SRC)/lagrangian/spray/lnInclude \
+    -I$(LIB_SRC)/lagrangian/distributionModels/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/SLGThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/radiation/lnInclude \
+    -I$(LIB_SRC)/ODE/lnInclude \
+    -I$(LIB_SRC)/regionModels/regionModel/lnInclude \
+    -I$(LIB_SRC)/regionModels/surfaceFilmModels/lnInclude \
+    -I$(LIB_SRC)/regionFaModels/lnInclude \
+    -I$(LIB_SRC)/faOptions/lnInclude \
+    -I$(LIB_SRC)/combustionModels/lnInclude
+    -I$(QBMM_SRC)/quadratureMethods/momentSets/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/momentInversion/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/quadratureNode/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/moments \
+    -I$(QBMM_SRC)/quadratureMethods/quadratureApproximations/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/fieldMomentInversion/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/momentAdvection/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/PDFTransportModels/lnInclude \
+    -I$(QBMM_SRC)/quadratureMethods/populationBalanceModels/lnInclude \
+    -I$(QBMM_SRC)/Vandermonde/lnInclude \
+
+EXE_LIBS = \
+    -lfiniteVolume \ 
+    -lfvOptions \
+    -lmeshTools \
+    -lturbulenceModels \
+    -lcompressibleTurbulenceModels \
+    -lthermoTools \
+    -llagrangian \
+    -llagrangianIntermediate \
+    -llagrangianTurbulence \
+    -llagrangianSpray \
+    -lspecie \
+    -lcompressibleTransportModels \
+    -lfluidThermophysicalModels \
+    -lreactionThermophysicalModels \
+    -lthermophysicalProperties \
+    -lSLGThermo \
+    -lchemistryModel \
+    -lradiationModels \
+    -lODE \
+    -lregionModels \
+    -lsurfaceFilmModels \
+    -lcombustionModels \
+    -lsampling \
+    -lregionFaModels \
+    -lfiniteArea \
+    -lfaOptions
